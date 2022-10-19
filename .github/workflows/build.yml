@@ -27,5 +27,6 @@ jobs:
           CIBW_SKIP: >
             *musllinux* pp*
           CIBW_ARCHS: x86_64
-          CIBW_REPAIR_WHEEL_COMMAND: "touch /project/foo"
+          CIBW_REPAIR_WHEEL_COMMAND: >
+            auditwheel repair -w {dest_dir} {wheel}; touch /project/foo
       - run: ls -la .
