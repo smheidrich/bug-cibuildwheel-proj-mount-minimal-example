@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "example"
+version = "0.1.0"
+description = "Minimal example re: cibuildwheel doesn't mount the project dir"
+authors = ["smheidrich <smheidrich@weltenfunktion.de>"]
+packages = [
+  { include = "nothing.py" }
+]
+readme = "README.md"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
