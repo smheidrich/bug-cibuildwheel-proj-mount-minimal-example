@@ -1,0 +1,31 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v[0-9]*'
+  pull_request:
+
+concurrency:
+  group: >
+    ${{ github.workflow }} @
+    ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "MAIN_DIR=$PWD" >> "$GITHUB_ENV"
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.10.2
+        env:
+          CIBW_SKIP: >
+            *musllinux* pp*
+          CIBW_ARCHS: x86_64
+          CIBW_REPAIR_WHEEL_COMMAND: "touch /project/foo"
+      - run: ls -la .
