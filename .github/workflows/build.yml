@@ -28,5 +28,5 @@ jobs:
             *musllinux* pp*
           CIBW_ARCHS: x86_64
           CIBW_REPAIR_WHEEL_COMMAND: >
-            auditwheel repair -w {dest_dir} {wheel}; touch /project/foo
+            auditwheel repair -w {dest_dir} {wheel}; touch /host/$MAIN_DIR/foo
       - run: ls -la .
